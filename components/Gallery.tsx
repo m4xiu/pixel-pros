@@ -86,17 +86,22 @@ export default function Gallery({
                 isSpanTwo ? "sm:col-span-2 aspect-[16/10]" : isLandscape ? "aspect-[4/3]" : "aspect-[3/4]"
               }`}
             >
-              {/* High-quality responsive image with Next.js optimization */}
+              {/* High-quality gallery image matching working asset path */}
               <Image
                 src={item.src}
                 alt={item.alt}
                 fill
+                unoptimized
+                priority={index < 4}
+                loading={index < 4 ? "eager" : "lazy"}
                 sizes={
                   isSpanTwo
                     ? "(max-width: 640px) 100vw, (max-width: 1024px) 100vw, (max-width: 1280px) 66vw, 850px"
                     : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 420px"
                 }
-                quality={85}
+                onError={() => {
+                  console.error(`[Gallery] Failed to load image: ${item.src}`);
+                }}
                 className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
               />
 

@@ -104,6 +104,10 @@ export default function Lightbox({
             width={item.width}
             height={item.height}
             priority
+            unoptimized
+            onError={() => {
+              console.error(`[Lightbox] Failed to load image: ${item.src}`);
+            }}
             className="max-w-full max-h-[72vh] sm:max-h-[78vh] object-contain rounded-sm shadow-2xl transition-all duration-300"
           />
         </div>
